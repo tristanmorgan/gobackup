@@ -1,6 +1,7 @@
 package storage
 
 import (
+	"context"
 	"github.com/huacnlee/gobackup/helper"
 	"golang.org/x/crypto/ssh"
 	"os"
@@ -91,7 +92,7 @@ func (ctx *SCP) upload(fileKey string) (err error) {
 
 	remotePath := path.Join(ctx.path, fileKey)
 	logger.Info("-> scp", remotePath)
-	ctx.client.CopyFromFile(*file, remotePath, "0655")
+	ctx.client.CopyFromFile(context.Background(), *file, remotePath, "0655")
 
 	logger.Info("Store successed")
 	return nil
